@@ -30,7 +30,7 @@ app.post("/upload", (req, res) => {
                     res.status(200).send(JSON.stringify('File uploaded to Cloudinary'));
                 }
             });
-
+    console.log("")
     // res.json({ status: "File received" });
 });
 
