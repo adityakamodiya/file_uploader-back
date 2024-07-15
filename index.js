@@ -13,7 +13,7 @@ cloudinary.config({
 });
 
 app.use(express.json());
-app.use(cors({ origin: "http://127.0.0.1:5500" }))
+app.use(cors({ origin: "http://localhost:5173" }))
 app.use(fileUpload({ useTempFiles: true }))
 app.use(express.urlencoded({ extended: false }))
 
@@ -34,7 +34,11 @@ app.post("/upload", (req, res) => {
     // res.json({ status: "File received" });
 });
 
-
+app.post("/file",(req,res)=>{
+    // let body  = req.body;
+    console.log(req.body);
+    res.send("hello aditya");
+});
 
 // cloudinary.openUploadWidget(
 //     {
@@ -53,5 +57,10 @@ app.post("/upload", (req, res) => {
 //         }
 //     }
 // );
+
+app.post("/try",(req,res)=>{
+    console.log(req.files.file,req.body.name);
+    res.send("success");
+})
 
 app.listen(port, () => console.log(port + " started"))
