@@ -21,7 +21,11 @@ app.use(express.urlencoded({ extended: false }))
 
 app.post("/upload", (req, res) => {
     let file = req.files.file;
-    console.log(file);
+
+    let {Name,Number,Email,State,City}   = {...req.body};
+
+    console.log(Name,Number,Email,State,City,file);
+
 // res.send("success");
     // cloudinary.uploader.upload(file.tempFilePath, (err, result) => {
     //             if (err) {
@@ -31,11 +35,13 @@ app.post("/upload", (req, res) => {
     //                 console.log(result);
     //                 console.log(result.secure_url)
     //                 let url = result.secure_url
-    //                 // let detail = db.collection('files').insertOne({url})
+    //                // let detail = db.collection('files').insertOne({Name,Number,Email,State,City,url,publicId})
     //                 res.status(200).send(JSON.stringify('File uploaded to Cloudinary'));
               
     //             }
     //         });
+
+
 
     // res.json({ status: "File received" });
 });
@@ -52,3 +58,4 @@ connection.then((client) => {
     db = client.db(dbName)
     app.listen(port, () => console.log(port + " started"))
 })
+
