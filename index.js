@@ -53,6 +53,39 @@ app.get("/getdata",async(req,res)=>{
     res.send(data);
 })
 
+app.delete("/delete", async (req, res) => {
+    let url = req.body.url
+    console.log(req.body.url)
+
+    let db_url = await db.collection('files').find().toArray()
+    // console.log(db_url[0].url)
+    let length = db_url.length
+    // console.log(length)
+    // console.log(db_url[1].publicId)
+    
+    for (let i = 0; i < db_url.length; i++) {
+            // console.log("hi")
+        if (db_url[i].url == url) {
+            console.log('same')
+
+            // console.log(db_url[i].publicId)
+            let publicId = db_url[i].publicId
+            cloudinary.uploader.destroy(publicId, function (error, result) {
+                console.log("hello")
+                if (error) {
+                    console.error('Error deleting file:', error)
+                } else {
+                    db.collection('files').deleteOne({ url: url })
+                    console.log('File deleted successfully:', result)
+                    res.send('File deleted successfully:')
+                }
+            });
+        }
+        
+
+        }
+  
+})
 // app.post("/try",(req,res)=>{
 //     console.log(req.files.file,req.body.name);
 //     res.send("success");
