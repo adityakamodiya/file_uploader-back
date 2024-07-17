@@ -15,9 +15,21 @@ cloudinary.config({
 });
 
 app.use(express.json());
-app.use(cors({ origin: "*" }))
+const allowedOrigins = ['https://admin-pannel-pi.vercel.app'];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
 app.use(fileUpload({ useTempFiles: true }))
 app.use(express.urlencoded({ extended: false }))
+
 
 app.post("/upload", (req, res) => {
     let file = req.files.file;
