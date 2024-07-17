@@ -8,6 +8,9 @@ const app = express();
 const port = 8002;
 let db
 
+app.get("/",(req,res)=>{
+    res.json("hello")
+})
 cloudinary.config({
     cloud_name: 'da2oqj7qe',
     api_key: '687377994928293',
